@@ -9,10 +9,12 @@ COL_BLUE=$ESC_SEQ"34;01m"
 COL_MAGENTA=$ESC_SEQ"35;01m"
 COL_CYAN=$ESC_SEQ"36;01m"
 
+CURRENT_USER=$USER
+
 YUM_COMMAND="dnf"
 
 function info() {
-    echo -e "\n$COL_CYAN [dot] ⇒ $COL_RESET"$1""
+    echo -e "\n$COL_CYAN[dot] ⇒ $COL_RESET"$1""
 }
 
 function ok() {
@@ -60,6 +62,7 @@ require_yum stow
 require_yum_group "Development Tools"
 require_yum automake
 require_yum rxvt-unicode
+require_yum zsh
 require_yum vim-enhanced
 require_yum libtool
 require_yum gcc-c++
@@ -111,3 +114,8 @@ sudo PREFIX=/usr make -s install;ok
 cd .. # sources/sxhkd
 
 cd .. # sources
+
+info "System settings..."
+
+action "Setting login shell to zsh"
+sudo chsh -s /bin/zsh $CURERNT_USER 2> /dev/null > /dev/null;ok
