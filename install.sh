@@ -83,6 +83,22 @@ info "Installing tiling wm utility packages..."
 require_yum dmenu
 require_yum feh
 
+# compton build
+info "Installing compton development packages..."
+require_yum libX11-devel
+require_yum libXcomposite-devel
+require_yum libXdamage-devel
+require_yum libXfixes-devel
+require_yum libXext-devel
+require_yum libXrender-devel
+require_yum libXrandr-devel
+require_yum libXinerama-devel
+require_yum libconfig-devel
+require_yum libdrm-devel
+require_yum libGL-devel
+require_yum dbus-devel
+require_yum pcre-devel
+require_yum asciidoc
 
 # Build bspwm & sxhkd
 cd sources
