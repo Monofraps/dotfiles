@@ -1,6 +1,100 @@
 #!/bin/sh
 
+ESC_SEQ="\x1b["
+COL_RESET=$ESC_SEQ"39;49;00m"
+COL_RED=$ESC_SEQ"31;01m"
+COL_GREEN=$ESC_SEQ"32;01m"
+COL_YELLOW=$ESC_SEQ"33;01m"
+COL_BLUE=$ESC_SEQ"34;01m"
+COL_MAGENTA=$ESC_SEQ"35;01m"
+COL_CYAN=$ESC_SEQ"36;01m"
+
+YUM_COMMAND="dnf"
+
+function info() {
+    echo -e "\n$COL_CYAN [dot] ⇒ $COL_RESET"$1""
+}
+
+function ok() {
+    echo -e "$COL_GREEN[ok]$COL_RESET"
+}
+
+function error() {
+    echo -e "$COL_RED[error]$COL_RESET \n"$1
+}
+
+function action() {
+    echo -en "$COL_YELLOW ⇒$COL_RESET $1..."
+}
+
+function require_yum() {
+    action "$YUM_COMMAND install $1"
+    STD_ERR="$(sudo $YUM_COMMAND install -q -y $1 2>&1 > /dev/null)"
+    if [ $? != "0" ]; then
+        error "failed to install $1! aborting..."
+        error $STD_ERR
+        exit -1
+    fi
+
+    ok
+}
+
+function require_yum_group() {
+    action "$YUM_COMMAND groupinstall -y $1"
+
+    STD_ERR="$(sudo $YUM_COMMAND groupinstall -q -y \"$1\" 2>&1 > /dev/null)"
+    if [ $? != "0" ]; then
+        error "failed to install group $1! aborting..."
+        error $STD_ERR
+        exit -1
+    fi
+
+    ok
+}
+
+# Install a few things
 sudo -v
 
-sudo yum install stow
+info "Installing base packages..."
+require_yum stow
+require_yum_group "Development Tools"
+require_yum automake
+require_yum vim-enhanced
+require_yum libtool
+require_yum gcc-c++
 
+# bspwm build
+info "Installing bspwm development packages..."
+require_yum libxcb-devel 
+require_yum xcb-util-devel 
+require_yum xcb-util-wm 
+require_yum xcb-util-wm-devel
+
+# sxhkd build
+info "Installing sxhkd development packages..."
+require_yum xcb-util-keysyms 
+require_yum xcb-util-keysyms-devel
+
+info "Installing tiling wm utility packages..."
+require_yum dmenu
+require_yum feh
+
+
+# Build bspwm & sxhkd
+cd sources
+
+cd bspwm
+info "bspwm..."
+make -s
+sudo PREFIX=/usr make -s install
+sudo cp contrib/freedesktop/bspwm.desktop /usr/share/xsessions/bspwm.desktop
+sudo cp contrib/freedesktop/bspwm-session /usr/bin/bspwm-session
+cd .. # sources/bspwm
+
+cd sxhkd
+info "sxhkd"
+make -s
+sudo PREFIX=/usr make -s install
+cd .. # sources/sxhkd
+
+cd .. # sources
