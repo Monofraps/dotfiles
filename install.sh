@@ -161,7 +161,13 @@ install_dotfiles zsh
 info "Fonts"
 install_dotfiles fonts
 action "fc-cache -f $HOME/.fonts"
-fc-cache -vf $HOME/.fonts
+STD_ERR="$(fc-cache -vf $HOME/.fonts 2>&1 > /dev/null)"
+if [ $? != "0" ]; then
+    error "failed to update font cache! aborting..."
+    error $STD_ERR
+    exit -1
+fi
+ok
 
 info "Dotfiles: bspwm"
 install_dotfiles bspwm
