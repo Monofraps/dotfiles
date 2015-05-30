@@ -175,4 +175,4 @@ install_dotfiles bspwm
 info "System settings..."
 
 action "Setting login shell to zsh"
-sudo chsh -s /bin/zsh $CURERNT_USER 2> /dev/null > /dev/null;ok
+sudo chsh -s /bin/zsh $CURRENT_USER 2> /dev/null > /dev/null;ok
