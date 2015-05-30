@@ -158,6 +158,9 @@ cd .. # sources
 info "Dotfiles: oh-my-zsh"
 install_dotfiles zsh
 
+info "Wallpapers"
+install_dotfiles wallpapers
+
 info "Fonts"
 install_dotfiles fonts
 action "fc-cache -f $HOME/.fonts"

@@ -1,0 +1,3 @@
+compton
+
+feh --randomize --bg-fill ~/.config/wallpapers/*
