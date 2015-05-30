@@ -85,16 +85,28 @@ cd sources
 
 cd bspwm
 info "bspwm..."
-make -s
-sudo PREFIX=/usr make -s install
-sudo cp contrib/freedesktop/bspwm.desktop /usr/share/xsessions/bspwm.desktop
-sudo cp contrib/freedesktop/bspwm-session /usr/bin/bspwm-session
+
+action "make"
+make -s;ok
+
+action "make install"
+sudo PREFIX=/usr make -s install;ok
+
+action "Installing desktop description"
+sudo cp contrib/freedesktop/bspwm.desktop /usr/share/xsessions/bspwm.desktop;ok
+
+action "Installing session init script"
+sudo cp contrib/freedesktop/bspwm-session /usr/bin/bspwm-session;ok
 cd .. # sources/bspwm
 
 cd sxhkd
 info "sxhkd"
-make -s
-sudo PREFIX=/usr make -s install
+
+action "make"
+make -s;ok
+
+action "make install"
+sudo PREFIX=/usr make -s install;ok
 cd .. # sources/sxhkd
 
 cd .. # sources
