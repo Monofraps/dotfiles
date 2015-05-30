@@ -141,6 +141,21 @@ cd .. # sources/compton
 
 cd .. # sources
 
+
+info "Dotfiles: oh-my-zsh"
+action "stow zsh"
+stow zsh;ok
+
+info "Fonts"
+action "stow fonts"
+stow fonts;ok
+action "fc-cache -f $HOME/.fonts"
+fc-cache -vf $HOME/.fonts
+
+info "Dotfiles: bspwm"
+action "stow bspwm"
+stow bspwm;ok
+
 info "System settings..."
 
 action "Setting login shell to zsh"
