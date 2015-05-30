@@ -54,6 +54,19 @@ function require_yum_group() {
     ok
 }
 
+function install_dotfiles() {
+    action "stow $1"
+
+    STD_ERR="$(stow $1 2>&1 > /dev/null)"
+    if [ $? != "0" ]; then
+        error "failed to install dotfiles $1! aborting..."
+        error $STD_ERR
+        exit -1
+    fi
+
+    ok
+}
+
 # Install a few things
 sudo -v
 
@@ -143,18 +156,15 @@ cd .. # sources
 
 
 info "Dotfiles: oh-my-zsh"
-action "stow zsh"
-stow zsh;ok
+install_dotfiles zsh
 
 info "Fonts"
-action "stow fonts"
-stow fonts;ok
+install_dotfiles fonts
 action "fc-cache -f $HOME/.fonts"
 fc-cache -vf $HOME/.fonts
 
 info "Dotfiles: bspwm"
-action "stow bspwm"
-stow bspwm;ok
+install_dotfiles bspwm
 
 info "System settings..."
 
