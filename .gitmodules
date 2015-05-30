@@ -1,3 +1,9 @@
 [submodule "zsh/.oh-my-zsh"]
 	path = zsh/.oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule "sources/bspwm"]
+	path = sources/bspwm
+	url = https://github.com/Baskerville/bspwm.git
+[submodule "sources/sxhkd"]
+	path = sources/sxhkd
+	url = https://github.com/Baskerville/sxhkd.git
