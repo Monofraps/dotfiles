@@ -7,3 +7,6 @@
 [submodule "sources/sxhkd"]
 	path = sources/sxhkd
 	url = https://github.com/Baskerville/sxhkd.git
+[submodule "sources/compton"]
+	path = sources/compton
+	url = https://github.com/chjj/compton.git
