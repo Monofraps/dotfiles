@@ -59,6 +59,7 @@ info "Installing base packages..."
 require_yum stow
 require_yum_group "Development Tools"
 require_yum automake
+require_yum rxvt-unicode
 require_yum vim-enhanced
 require_yum libtool
 require_yum gcc-c++
