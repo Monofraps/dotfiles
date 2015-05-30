@@ -129,6 +129,16 @@ action "make install"
 sudo PREFIX=/usr make -s install;ok
 cd .. # sources/sxhkd
 
+cd compton
+info "compton"
+
+action "make"
+make -s;ok
+
+action "make install"
+sudo PREFIX=/usr make -s install;ok
+cd .. # sources/compton
+
 cd .. # sources
 
 info "System settings..."
