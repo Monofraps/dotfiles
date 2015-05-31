@@ -1,0 +1,19 @@
+#!/bin/bash
+# Copy file or pipe to Xorg clipboard
+ 
+if [[ $(whoami) == root ]]; then
+  echo "Must not be root"
+  exit -1
+fi
+ 
+if ! [ -t 0 ]; then
+  # Copy stdin
+  echo -n "$(< /dev/stdin)" | xclip -selection clipboard
+else
+  # Copy file
+  if [[ ! -f "$@" ]]; then
+    echo "File ${txtund}$filename${txtrst} doesn't exist" && exit -1
+  else
+    xclip -in -selection clipboard "$@"
+  fi
+fi

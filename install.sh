@@ -79,6 +79,7 @@ require_yum zsh
 require_yum vim-enhanced
 require_yum libtool
 require_yum gcc-c++
+require_yum xclip
 
 # bspwm build
 info "Installing bspwm development packages..."
@@ -174,6 +175,13 @@ ok
 
 info "Dotfiles: bspwm"
 install_dotfiles bspwm
+
+info "Dotfiles: vim"
+install_dotfiles vim
+
+info "Additional binaries"
+install_ditfiles editor
+install_dotfiles git
 
 info "System settings..."
 

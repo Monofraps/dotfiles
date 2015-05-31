@@ -52,11 +52,13 @@ export PATH="/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/
 # export MANPATH="/usr/local/man:$MANPATH"
 
 DEV_DIR=$HOME/devel
+DEVRC=$DEV_DIR/.devrc
+
+if [ -f $DEVRC ]; then
+    alias dev="source $DEVRC && cd $DEV_DIR"
+fi
 
 source $ZSH/oh-my-zsh.sh
-source $DEV_DIR/.devenv
-
-alias dev="source $DEV_DIR/.devenv && cd $DEV_DIR"
 
 export EDITOR='vim'
 # You may need to manually set your language environment
@@ -68,14 +70,6 @@ export EDITOR='vim'
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias zrc="zshrc && source ~/.zshrc"
 
 alias ll="ls -lh"
@@ -83,5 +77,4 @@ alias la="ls -lAFh"
 alias l="ls -lFh"
 
 unset GREP_OPTIONS
-
 alias grep="/usr/bin/grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn"
